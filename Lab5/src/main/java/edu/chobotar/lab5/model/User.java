@@ -20,12 +20,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 public class User {
     @Id
-    public String id;
-    public String name;
-    public String username;
-    public String email;
-    public String phoneNumber;
-    public String gender;
+    private String id;
+    private String name;
+    private String username;
+    private String email;
+    private String phoneNumber;
+    private String gender;
 
     public User(String name, String username, String email, String phoneNumber, String gender) {
         this.name = name;
