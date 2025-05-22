@@ -1,6 +1,8 @@
 package edu.chobotar.lab5.controller;
 
 import edu.chobotar.lab5.model.User;
+import edu.chobotar.lab5.request.UserCreateRequest;
+import edu.chobotar.lab5.request.UserUpdateRequest;
 import edu.chobotar.lab5.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +37,21 @@ public class UserRestController {
         return userService.create(user);
     }
 
-    @PutMapping("{id}")
-    public User edit(@PathVariable String id, @RequestBody User user) {
-        return userService.update(id, user);
+    //============== request =====================
+    @PostMapping("/dto")
+    public User insert(@RequestBody UserCreateRequest request) {
+        return userService.create(request);
+    }
+
+    @PutMapping()
+    public User edit(@RequestBody User user) {
+        return userService.update(user);
+    }
+
+    //============== request =====================
+    @PutMapping("/dto")
+    public User edit(@RequestBody UserUpdateRequest request) {
+        return userService.update(request);
     }
 
     @DeleteMapping("{id}")

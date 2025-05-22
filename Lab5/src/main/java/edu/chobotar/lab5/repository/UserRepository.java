@@ -24,4 +24,6 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     // Пошук за префіксом номера телефону
     List<User> findByPhoneNumberStartingWith(String prefix);
+
+    public boolean existsByEmail(String email);
 }
