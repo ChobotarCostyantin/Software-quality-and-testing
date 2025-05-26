@@ -7,7 +7,9 @@ import edu.chobotar.lab5.request.UserUpdateRequest;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -100,5 +102,9 @@ public class UserService {
             return userRepository.save(userToUpdate);
         }
         return null;
+    }
+
+    public Boolean emailIsTaken(String email) {
+        return userRepository.existsByEmail(email);
     }
 }

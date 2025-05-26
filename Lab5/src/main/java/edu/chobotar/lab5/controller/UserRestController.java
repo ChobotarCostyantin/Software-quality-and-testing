@@ -1,13 +1,17 @@
 package edu.chobotar.lab5.controller;
 
 import edu.chobotar.lab5.model.User;
+import edu.chobotar.lab5.repository.UserRepository;
 import edu.chobotar.lab5.request.UserCreateRequest;
 import edu.chobotar.lab5.request.UserUpdateRequest;
 import edu.chobotar.lab5.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 
 /*
   @author Harsteel
@@ -29,6 +33,11 @@ public class UserRestController {
 
     @GetMapping("{id}")
     public User showOneById(@PathVariable String id) {
+        try {
+            userService.getById(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + id + " not found");
+        }
         return userService.getById(id);
     }
 
@@ -40,7 +49,13 @@ public class UserRestController {
     //============== request =====================
     @PostMapping("/dto")
     public User insert(@RequestBody UserCreateRequest request) {
-        return userService.create(request);
+        User user;
+        try {
+            user = userService.create(request);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email " + request.email() + " is already in use");
+        }
+        return user;
     }
 
     @PutMapping()
@@ -51,11 +66,20 @@ public class UserRestController {
     //============== request =====================
     @PutMapping("/dto")
     public User edit(@RequestBody UserUpdateRequest request) {
+        List<User> users = userService.getAll();
+            if (users.stream().anyMatch(user -> user.getEmail().equals(request.email()) && !Objects.equals(user.getId(), request.id()))) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email " + request.email() + " is already in use");
+            }
         return userService.update(request);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id) {
+        try {
+            userService.getById(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + id + " not found");
+        }
         userService.deleteById(id);
     }
 }

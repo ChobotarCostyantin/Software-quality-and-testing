@@ -38,7 +38,7 @@ class UserServiceTests {
     void setUp() {
         List<User> freshUsers = List.of(
                 new User("Олег Максимчук", "Tom_oleg", "maksimchuk@gmail.com", "0951234567", "Мопс"),
-                new User("2", "Валерій Адамко", "Roxaan", "adamko@gmail.com", "0957654321", "Бандеромобіль"),
+                new User("2","Валерій Адамко", "Roxaan", "adamko@gmail.com", "0957654321", "Бандеромобіль"),
                 new User("Михайло Скорейко", "Tesey", "skoreyko@gmail.com", "0951237654", "Бомбардіро Крокоділо"),
                 new User("4", "В'ячеслав Москалюк", "Ikaut", "moskaliuk@gmail.com", "0985358765", "Швайн")
         );

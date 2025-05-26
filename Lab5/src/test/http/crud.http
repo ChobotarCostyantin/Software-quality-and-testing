@@ -5,14 +5,14 @@ GET http://localhost:8080/api/v1/users
 GET http://localhost:8080/api/v1/users/1
 
 ### Create one
-POST http://localhost:8080/api/v1/users
+POST http://localhost:8080/api/v1/users/dto
 Content-Type: application/json
 
 {
   "id": "5",
   "name": "Костянтин Чоботар",
   "username": "Harsteel",
-  "email": "chobotar@gmail.com",
+  "email": "maksimchuk@gmail.com",
   "phoneNumber": "0985459876",
   "gender": "Вішалка для дівчат"
 }
